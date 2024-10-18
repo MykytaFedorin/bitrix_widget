@@ -17,7 +17,7 @@ function FileUploadButton() {
   };
 
   return (
-    <div className="file-upload">
+    <div className="file-upload" id="fileUploadBtnDiv">
       <input
         type="file"
         accept="*.*"
@@ -26,7 +26,7 @@ function FileUploadButton() {
         onChange={handleFileChange}
       />
       <button onClick={handleButtonClick} className="file-upload-button">
-        Загрузить документ
+        U
       </button>
     </div>
   );

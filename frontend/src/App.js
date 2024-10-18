@@ -1,15 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import FileUploadButton from './FileUploadButton'
-import SendButton from './SendButton'
+import MessageBar from './MessageBar';
 
 function App() {
   return (
-      <>
-      <FileUploadButton/>
-      <SendButton/>
-      <input type="text"/>
-      </>
+      <div class='dialog-window'>
+      <MessageBar/>
+      </div>
   );
 }
 

@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+.dialog-window{
+    display: flex;
+    gap: 3em;
+    flex-direction: column;
+    justify-content: end;
+    background: grey;
+}

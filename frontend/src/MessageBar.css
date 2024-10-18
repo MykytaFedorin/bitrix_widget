@@ -1,0 +1,9 @@
+#messageBar{
+    display: flex;
+    height: 2em;
+    gap: 0.3em;
+    flex-direction: row;
+    justify-content: center;
+    background: green;
+    align-items: stretch;
+}
