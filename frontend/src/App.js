@@ -4,7 +4,7 @@ import MessageBar from './MessageBar';
 
 function App() {
   return (
-      <div class='dialog-window'>
+      <div className='dialog-window'>
       <MessageBar/>
       </div>
   );

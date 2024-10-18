@@ -1,5 +1,16 @@
 #fileUploadBtnDiv{
     display: flex;
+    width: 2em;
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
+    background: grey;
+}
+#fileUploadBtnDiv:hover{
+    background: white;
+}
+#uploadBtnImage{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

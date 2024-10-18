@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import './FileUploadButton.css';
-
+import paperclip from './paperclip.png';
 
 function FileUploadButton() {
   const fileInputRef = useRef(null);
@@ -17,7 +17,7 @@ function FileUploadButton() {
   };
 
   return (
-    <div className="file-upload" id="fileUploadBtnDiv">
+    <div className="file-upload" id="fileUploadBtnDiv" onClick={handleButtonClick}>
       <input
         type="file"
         accept="*.*"
@@ -25,9 +25,7 @@ function FileUploadButton() {
         style={{ display: 'none' }}
         onChange={handleFileChange}
       />
-      <button onClick={handleButtonClick} className="file-upload-button">
-        U
-      </button>
+      <img src={paperclip} alt='paperclip' id="uploadBtnImage"></img>
     </div>
   );
 }
