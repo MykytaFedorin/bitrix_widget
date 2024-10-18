@@ -8,6 +8,7 @@ function App() {
       <>
       <FileUploadButton/>
       <SendButton/>
+      <input type="text"/>
       </>
   );
 }

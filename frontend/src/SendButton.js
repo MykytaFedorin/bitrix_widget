@@ -5,9 +5,10 @@ function SendButton() {
     const sendFile = () => {
         const formData = new FormData();
         const fileInput = document.querySelector('input[type="file"]');
-
+        const textInput = document.querySelector('input[type="text"]');
         if (fileInput.files.length > 0) {
             formData.append('file', fileInput.files[0]); 
+            formData.append('description', textInput.value); 
             fetch(upload_url, {
                 method: 'POST',
                 body: formData,

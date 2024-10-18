@@ -1,6 +1,7 @@
-from fastapi import FastAPI, Request, UploadFile, File
+from fastapi import FastAPI, Request, UploadFile, File, Form
 from loguru import logger
 from fastapi.middleware.cors import CORSMiddleware
+from chatgpt import create_letter
 import os
 logger.remove()
 logger.add("logs.log")
@@ -22,15 +23,9 @@ async def bitrix_handler(request: Request):
     return {"status": "success"}
 
 
-UPLOAD_DIRECTORY = os.getcwd()
-
-os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)
-
 @app.post("/cover_letter/generate")
-async def upload_file(file: UploadFile = File(...)):
-    file_location = os.path.join(UPLOAD_DIRECTORY, file.filename)
-    
-    with open(file_location, "wb") as f:
-        f.write(await file.read())  # Чтение содержимого и запись в файл
-
-    return {"info": f"file '{file.filename}' saved at '{file_location}'"}
+async def upload_file(file: UploadFile = File(...),
+                      description: str = Form(...)): 
+    cv = await file.read() 
+    letter = create_letter(cv.decode("utf-8"), description)
+    return letter

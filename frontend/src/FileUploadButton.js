@@ -20,7 +20,7 @@ function FileUploadButton() {
     <div className="file-upload">
       <input
         type="file"
-        accept=".pdf"
+        accept="*.*"
         ref={fileInputRef}
         style={{ display: 'none' }}
         onChange={handleFileChange}
