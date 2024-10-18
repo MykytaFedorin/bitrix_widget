@@ -45,3 +45,4 @@ yarn.lock
 # ESLint cache
 /.eslintcache
 env/
+*.pdf
