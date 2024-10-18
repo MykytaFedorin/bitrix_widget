@@ -1,21 +1,34 @@
-function SendButton(){
+function SendButton() {
+    const url = process.env.REACT_APP_PYTHON_API_URL
+    const upload_url = url+"/cover_letter/generate"; 
+
     const sendFile = () => {
-        fetch('https://api.example.com/data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ key: 'value' }),
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Success:', data);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-    }  
-    return <button onClick={sendFile}>Отправить</button>
+        const formData = new FormData();
+        const fileInput = document.querySelector('input[type="file"]');
+
+        if (fileInput.files.length > 0) {
+            formData.append('file', fileInput.files[0]); 
+            fetch(upload_url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+        } else {
+            console.log("File not uploaded");
+        }
+    };
+
+    return <button onClick={sendFile}>Отправить</button>;
 }
 
 export default SendButton;
+
