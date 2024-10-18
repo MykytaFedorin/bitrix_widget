@@ -2,7 +2,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+__pycache__/
+*.pyc
 # Testing
 /coverage
 
@@ -43,4 +44,4 @@ yarn.lock
 
 # ESLint cache
 /.eslintcache
-
+env/
