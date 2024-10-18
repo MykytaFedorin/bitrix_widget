@@ -1,7 +1,7 @@
 function SendButton() {
     const url = process.env.REACT_APP_PYTHON_API_URL
     const upload_url = url+"/cover_letter/generate"; 
-
+    const messageArea = document.getElementById("messageArea");
     const sendFile = () => {
         const formData = new FormData();
         const fileInput = document.querySelector('input[type="file"]');
@@ -21,7 +21,7 @@ function SendButton() {
                 }
                 return response.json();
             })
-            .then(data => console.log('Success:', data))
+            .then(data => messageArea.innerHTML = data)
             .catch((error) => console.error('Error:', error));
         } else {
             console.log("File not uploaded");
