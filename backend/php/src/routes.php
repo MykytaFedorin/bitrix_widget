@@ -2,6 +2,7 @@
 use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+require 'CvHandler.php';
 
 return function (App $app) {
     $app->add(function (Request $request, $handler) {
@@ -22,11 +23,12 @@ return function (App $app) {
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     });
 
-    $app->post('/cv/generate', function (Request $request, Response $response) use ($app){
+    $app->post('/cv/find', function (Request $request, Response $response) use ($app){
         $body = $request->getBody();
         $parsedBody = json_decode($body, true);
         $description = $parsedBody['description'];
-        $response->getBody()->write(json_encode(['description' => $description]));
+        $res = getAllFiles();
+        $response->getBody()->write(json_encode(['files' => $res]));
         return $response->withHeader('Content-Type', 'application/json');
     });
 };

@@ -2,7 +2,7 @@ function SendButton() {
     const python_url = process.env.REACT_APP_PYTHON_API_URL;
     const php_url = process.env.REACT_APP_PHP_API_URL;
     const letter_url = python_url + "/cover_letter/generate"; 
-    const cv_url = php_url + "/cv/generate"; 
+    const cv_url = php_url + "/cv/find"; 
 
     const sendFile = () => {
         const formData = new FormData();
