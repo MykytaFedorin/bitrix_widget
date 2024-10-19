@@ -3,13 +3,14 @@ require '../vendor/autoload.php';
 use Dotenv\Dotenv;
 
 function getAllFiles() {
+    $log = require 'logger.php';
     // Загружаем переменные окружения из файла .env
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
     // Формируем URL для запроса
-    $webhookUrl = $_ENV["BITRIX_BASE_URL"] . "disk.folder.getchildren?id=3";
-
+    $webhookUrl = $_ENV["BITRIX_BASE_URL"] . "disk.folder.getchildren?id=93";
+    $log->debug($webhookUrl);
     $ch = curl_init();
 
     // Устанавливаем параметры CURL
@@ -32,7 +33,7 @@ function getAllFiles() {
             echo 'Ошибка API: ' . $result['error_description'];
             return null; // Возвращаем null в случае ошибки API
         } else {
-            return $result['result']; // Возвращаем результат
+            return $response; // Возвращаем результат
         }
     }
 
@@ -40,37 +41,38 @@ function getAllFiles() {
 }
 
 function downloadAllFiles($jsonResponse){
+    $log = require 'logger.php';
 
-// Декодируем JSON
-$data = json_decode($jsonResponse, true);
+    // Декодируем JSON
+    $data = json_decode($jsonResponse, true);
 
-// Проверяем наличие ошибок при декодировании
-if (json_last_error() !== JSON_ERROR_NONE) {
-    die('Ошибка при декодировании JSON: ' . json_last_error_msg());
-}
-
-// Перебираем результат и скачиваем файлы
-foreach ($data['result'] as $file) {
-    $downloadUrl = $file['DOWNLOAD_URL'];
-    $fileName = basename($file['NAME']);
-
-    // Скачиваем файл
-    $ch = curl_init($downloadUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-
-    $fileData = curl_exec($ch);
-    
-    if (curl_errno($ch)) {
-        echo 'Ошибка скачивания файла ' . $fileName . ': ' . curl_error($ch) . PHP_EOL;
-    } else {
-        // Сохраняем файл
-        file_put_contents($fileName, $fileData);
-        echo 'Файл ' . $fileName . ' успешно скачан.' . PHP_EOL;
+    // Проверяем наличие ошибок при декодировании
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        die('Ошибка при декодировании JSON: ' . json_last_error_msg());
     }
 
-    curl_close($ch);
-}
+    // Перебираем результат и скачиваем файлы
+    foreach ($data['result'] as $file) {
+        $downloadUrl = $file['DOWNLOAD_URL'];
+        $fileName = basename($file['NAME']);
+        $log->debug("Download file " . $fileName . " with url " . $downloadUrl); 
+        // Скачиваем файл
+        $ch = curl_init($downloadUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+
+        $fileData = curl_exec($ch);
+        
+        if (curl_errno($ch)) {
+            echo 'Ошибка скачивания файла ' . $fileName . ': ' . curl_error($ch) . PHP_EOL;
+        } else {
+            // Сохраняем файл
+            file_put_contents($fileName, $fileData);
+            echo 'Файл ' . $fileName . ' успешно скачан.' . PHP_EOL;
+        }
+
+        curl_close($ch);
+    }
 
 }
 

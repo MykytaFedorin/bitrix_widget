@@ -28,7 +28,8 @@ return function (App $app) {
         $parsedBody = json_decode($body, true);
         $description = $parsedBody['description'];
         $res = getAllFiles();
-        $response->getBody()->write(json_encode(['files' => $res]));
+        downloadAllFiles($res);
+        $response->getBody()->write(json_encode(['files' => "succes"]));
         return $response->withHeader('Content-Type', 'application/json');
     });
 };
