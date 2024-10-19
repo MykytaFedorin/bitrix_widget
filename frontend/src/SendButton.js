@@ -22,6 +22,7 @@ function SendButton() {
 
         if (fileInput.files.length > 0) {
             formData.append('file', fileInput.files[0]);
+            formData.append('description', textInput.value);
             fetch(letter_url, {
                 method: 'POST',
                 body: formData,
