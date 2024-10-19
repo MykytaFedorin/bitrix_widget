@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request, UploadFile, File, Form
 from loguru import logger
 from fastapi.middleware.cors import CORSMiddleware
 from chatgpt import create_letter
-import os
 logger.remove()
 logger.add("logs.log")
 

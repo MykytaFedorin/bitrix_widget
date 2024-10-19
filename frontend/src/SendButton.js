@@ -1,9 +1,9 @@
 function SendButton() {
     const url = process.env.REACT_APP_PYTHON_API_URL
     const upload_url = url+"/cover_letter/generate"; 
-    const messageArea = document.getElementById("messageArea");
     const sendFile = () => {
         const formData = new FormData();
+        const messageArea = document.getElementById("messageArea");
         const fileInput = document.querySelector('input[type="file"]');
         const textInput = document.querySelector('input[type="text"]');
         if (fileInput.files.length > 0) {
