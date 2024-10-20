@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SendButton({ addMessage, uploadedFile, textInputValue }) {
+function SendButton({ addMessage, uploadedFile, textInputValue, setTextInputValue }) {
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
     console.log("SendButton.js file="+uploadedFile);
@@ -13,10 +13,11 @@ function SendButton({ addMessage, uploadedFile, textInputValue }) {
         const formData = new FormData();
 
         if (textInputValue === "") {
-            addMessage("Description is required");
+            console.log("Description is required");
             return;
         }
         addMessage(textInputValue);
+        setTextInputValue("");
         addMessage("Обработка...");
         if (uploadedFile) {
             formData.append('file', uploadedFile);

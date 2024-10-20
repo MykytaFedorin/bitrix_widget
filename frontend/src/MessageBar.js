@@ -10,20 +10,20 @@ function MessageBar({ addMessage }) {
     const [uploadedFile, setUploadedFile] = useState(null);
     const [textInputValue, setTextInputValue] = useState("");
 
-    const handleFileChange = (file) => {
-        setUploadedFile(file);
-    };
-
-    const handleTextChange = (text) => {
-        setTextInputValue(text);
+    const handleInputChange = (e) => {
+        setTextInputValue(e.target.value);
     };
 
     return (
         <div id="messageBar">
             <div id="messageBarLine">
-                <FileUploadButton onFileChange={handleFileChange} />
-                <TextInputField onChange={handleTextChange} />
-                <SendButton addMessage={addMessage} uploadedFile={uploadedFile} textInputValue={textInputValue} />
+                <FileUploadButton onFileChange={setUploadedFile} />
+                <TextInputField inputValue={textInputValue}
+                                onChange={handleInputChange} />
+                <SendButton addMessage={addMessage} 
+                            uploadedFile={uploadedFile}
+                            textInputValue={textInputValue} 
+                            setTextInputValue={setTextInputValue}/>
             </div>
         </div>
     );
