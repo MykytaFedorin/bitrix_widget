@@ -1,8 +1,9 @@
 import './MessageArea.css';
 
-function MessageArea(){
+function MessageArea({message}){
+    console.log("MessageArea.js");
     return(
-        <div id="messageArea"></div>
+        <div id="messageArea"><a href={message["downloadUrl"]}>{message["fileName"]}</a></div>
     )
 }
 

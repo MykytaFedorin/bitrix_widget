@@ -35,7 +35,28 @@ function getAllCvInfo() {
 
     curl_close($ch);
 }
+function findBestCandidate($candidates){
 
+    $log = require 'logger.php';
+    $bestCandidate = null;
+    $highestRating = -1; 
+
+    foreach ($candidates as $fileName => $data) {
+        $currentRating = $data[0]; 
+        $downloadUrl = $data[1];   
+        $log->debug("Download url is " . $downloadUrl);
+        if ($currentRating > $highestRating) {
+            $highestRating = $currentRating;
+            $bestCandidate = [
+                'fileName' => $fileName,
+                'rating' => $currentRating,
+                'downloadUrl' => $downloadUrl
+            ];
+        }
+    }
+    $log->debug("Best candidate: " . $bestCandidate["downloadUrl"]);
+    return $bestCandidate;
+}
 function getCandidate($AllCvInfo, $posDescription){
     $rating = [];
     $log = require 'logger.php';
@@ -61,12 +82,13 @@ function getCandidate($AllCvInfo, $posDescription){
         } else {
             # file_put_contents($fileName, $fileData);
             $log->debug($fileData); 
-            rateCv($fileData, $posDescription);
+            $rating[$fileName] = [rateCv($fileData, $posDescription), $downloadUrl];
             $log->debug('Файл ' . $fileName . ' успешно прочитан.' . PHP_EOL);
         }
 
         curl_close($ch);
     }
+    return findBestCandidate($rating);
 
 }
 function rateCv($cv, $position){
@@ -75,5 +97,5 @@ function rateCv($cv, $position){
                 ". Оцени вот это резюме от 1 до 10."
                 . $cv .
                 "Ответ напиши коротко, одной цифрой.";
-    askGPT($question); 
+    return (int)askGPT($question); 
 }

@@ -10,7 +10,8 @@ function askGPT($question){
             ['role' => 'user', 'content' => $question],
         ],
     ]);
-
-    $log->debug("ChatGPT response: " . $result->choices[0]->message->content);
+    $rating = $result->choices[0]->message->content;
+    $log->debug("ChatGPT response: " . $rating);
+    return $rating;
 }
 ?>

@@ -1,4 +1,8 @@
-function SendButton() {
+import React from 'react';
+
+function SendButton({ setMessage, uploadedFile, textInputValue }) {
+    console.log("SendButton.js");
+    console.log("SendButton.js text="+textInputValue);
     const python_url = process.env.REACT_APP_PYTHON_API_URL;
     const php_url = process.env.REACT_APP_PHP_API_URL;
     const letter_url = python_url + "/cover_letter/generate"; 
@@ -6,24 +10,16 @@ function SendButton() {
 
     const sendFile = () => {
         const formData = new FormData();
-        const messageArea = document.getElementById("messageArea");
-        const fileInput = document.querySelector('input[type="file"]');
-        const textInput = document.querySelector('input[type="text"]');
 
-        if (!messageArea) {
-            console.error("Message area not found");
+        if (textInputValue === "") {
+            setMessage("Description is required");
             return;
         }
 
-        if (textInput.value === "") {
-            messageArea.innerHTML = "Description is required";
-            return;
-        }
-
-        messageArea.innerHTML = "Обработка...";
-        if (fileInput.files.length > 0) {
-            formData.append('file', fileInput.files[0]);
-            formData.append('description', textInput.value);
+        setMessage("Обработка...");
+        if (uploadedFile) {
+            formData.append('file', uploadedFile);
+            formData.append('description', textInputValue);
             fetch(letter_url, {
                 method: 'POST',
                 body: formData,
@@ -34,16 +30,17 @@ function SendButton() {
                 return response.json();
             })
             .then(data => {
-                messageArea.innerHTML = JSON.stringify(data);  // Отображение результата
+                // Обработка успешного ответа
+                setMessage("Файл успешно отправлен");
             })
             .catch((error) => {
-                messageArea.innerHTML = `Error: ${error.message}`;
+                setMessage(`Error: ${error.message}`);
                 console.error('Error:', error);
             });
         } else {
             fetch(cv_url, {
                 method: 'POST',
-                body: JSON.stringify({"description": textInput.value}),
+                body: JSON.stringify({"description": textInputValue}),
                 headers: { 'Content-Type': 'application/json'},
             })
             .then(response => {
@@ -51,10 +48,11 @@ function SendButton() {
                 return response.json();
             })
             .then(data => {
-                messageArea.innerHTML = JSON.stringify(data);  // Отображение результата
+                // Обработка успешного ответа
+                setMessage(data);  // Отображение результата
             })
             .catch((error) => {
-                messageArea.innerHTML = "Error:" + error.message;
+                setMessage("Error:" + error.message);
                 console.error('Error:', error);
             });
         }

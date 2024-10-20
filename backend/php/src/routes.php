@@ -28,8 +28,8 @@ return function (App $app) {
         $parsedBody = json_decode($body, true);
         $description = $parsedBody['description'];
         $AllCvInfo = getAllCvInfo();
-        getCandidate($AllCvInfo, $description);
-        $response->getBody()->write(json_encode(['message' => "success"]));
+        $candidate = getCandidate($AllCvInfo, $description);
+        $response->getBody()->write(json_encode($candidate));
         return $response->withHeader('Content-Type', 'application/json');
     });
 };
