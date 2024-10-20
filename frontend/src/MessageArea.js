@@ -1,13 +1,17 @@
 import './MessageArea.css';
 import MessageLink from './MessageLink';
+import Message from './Message.js';
+
+
 function MessageArea({message}){
     console.log("MessageArea.js");
     let messageBlock = null;
     if(typeof message == "string"){    
-        messageBlock = message;
+        messageBlock = (<Message content={message}/>);
     }
     else{
-        messageBlock = (<MessageLink href={message["downloadUrl"]} linkName={message["fileName"]}/>);
+        let messageLink = (<MessageLink href={message["downloadUrl"]} linkName={message["fileName"]}/>);
+        messageBlock = <Message content={messageLink}/>
     }
     return(<div id="messageArea">{messageBlock}</div>);
 }

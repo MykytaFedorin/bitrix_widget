@@ -1,0 +1,15 @@
+.message{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 50%;
+    background: grey;
+    border-radius: inherit;
+    margin: 0.7em;
+}
+.messageContent{
+    width: 80%;
+    overflow-wrap: break-word;
+    white-space: normal;
+    padding: 0.7em;
+}
