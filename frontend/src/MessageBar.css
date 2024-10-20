@@ -8,6 +8,7 @@
     background: green;
     background: grey;
     border-radius: inherit;
+    flex-shrink: 0;
 }
 #messageBarLine{
     display: flex;

@@ -5,7 +5,7 @@ import MessageBar from './MessageBar';
 import MessageArea from './MessageArea';
 
 function App() {
-    const [message, setMessage] = useState("Hincouwebyrvcouerybcouwyebcoruwybeoruycwberoucyb");
+    const [message, setMessage] = useState("Добрый день, как я могу Вам помочь?");
     console.log("App.js");
     return (
       <div id="body">
