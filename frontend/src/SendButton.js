@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SendButton({ addMessage, uploadedFile, textInputValue, setTextInputValue }) {
+function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextInputValue }) {
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
     console.log("SendButton.js file="+uploadedFile);
@@ -60,7 +60,7 @@ function SendButton({ addMessage, uploadedFile, textInputValue, setTextInputValu
         }
     };
 
-    return <button onClick={sendFile}>Отправить</button>;
+    return <button ref={myRef} onClick={sendFile}>Отправить</button>;
 }
 
 export default SendButton;

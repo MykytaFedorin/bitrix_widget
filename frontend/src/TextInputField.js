@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './TextField.css';
 
-function TextInputField({inputValue, onChange }) {
+function TextInputField({inputValue, onChange, handleSendMessage}) {
     console.log("TextInputField.js");
 
     return (
@@ -9,6 +9,7 @@ function TextInputField({inputValue, onChange }) {
             id="textInput"
             value={inputValue} 
             onChange={onChange} 
+            onKeyDown={handleSendMessage}
             placeholder="Введите сообщение" 
             rows={4}
         />
