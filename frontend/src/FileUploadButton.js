@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import paperclip from './paperclip.png';
 import './FileUploadButton.css';
 
-function FileUploadButton({ onFileChange }) {
+function FileUploadButton({ onFileChange, setUploadedFileVisibility, setUploadedFileName}) {
     const inputFileRef = useRef(null); 
 
     const handleDivClick = () => {
@@ -11,7 +11,10 @@ function FileUploadButton({ onFileChange }) {
 
     const handleFileChange = (e) => {
         if (onFileChange) {
+            const file = e.target.files[0];
             onFileChange(e.target.files[0]);
+            setUploadedFileVisibility({"display":"block"});
+            setUploadedFileName(file.name);
         }
     };
 

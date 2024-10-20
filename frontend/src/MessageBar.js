@@ -4,7 +4,7 @@ import SendButton from './SendButton';
 import TextInputField from './TextInputField';
 import './MessageBar.css';
 
-function MessageBar({ addMessage, deleteMessage}) {
+function MessageBar({ addMessage, deleteMessage, setUploadedFileVisibility, setUploadedFileName}) {
 
     console.log("MessageBar.js");
     const [uploadedFile, setUploadedFile] = useState(null);
@@ -27,7 +27,9 @@ function MessageBar({ addMessage, deleteMessage}) {
     return (
         <div id="messageBar">
             <div id="messageBarLine">
-                <FileUploadButton onFileChange={setUploadedFile} />
+                <FileUploadButton onFileChange={setUploadedFile}
+                                  setUploadedFileVisibility={setUploadedFileVisibility}
+                                  setUploadedFileName={setUploadedFileName}/>
                 <TextInputField inputValue={textInputValue}
                                 onChange={handleInputChange}
                                 handleSendMessage={handleSendMessage}/>
