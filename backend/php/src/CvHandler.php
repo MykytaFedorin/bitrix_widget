@@ -70,5 +70,10 @@ function getCandidate($AllCvInfo, $posDescription){
 
 }
 function rateCv($cv, $position){
-    test(); 
+    $question = "Я HR. Мне нужно закрыть вакансию " 
+                . $position .
+                ". Оцени вот это резюме от 1 до 10."
+                . $cv .
+                "Ответ напиши коротко, одной цифрой.";
+    askGPT($question); 
 }
