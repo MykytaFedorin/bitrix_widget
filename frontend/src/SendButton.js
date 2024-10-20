@@ -3,6 +3,7 @@ import React from 'react';
 function SendButton({ setMessage, uploadedFile, textInputValue }) {
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
+    console.log("SendButton.js file="+uploadedFile);
     const python_url = process.env.REACT_APP_PYTHON_API_URL;
     const php_url = process.env.REACT_APP_PHP_API_URL;
     const letter_url = python_url + "/cover_letter/generate"; 
@@ -31,7 +32,7 @@ function SendButton({ setMessage, uploadedFile, textInputValue }) {
             })
             .then(data => {
                 // Обработка успешного ответа
-                setMessage("Файл успешно отправлен");
+                setMessage(data);
             })
             .catch((error) => {
                 setMessage(`Error: ${error.message}`);

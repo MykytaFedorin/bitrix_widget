@@ -10,8 +10,8 @@ function App() {
     return (
       <div id="body">
           <div className='dialog-window'>
-          <MessageArea message={message}/>
-          <MessageBar setMessage={setMessage}/>
+              <MessageArea message={message}/>
+              <MessageBar setMessage={setMessage}/>
           </div>
       </div>
     );
