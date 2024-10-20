@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './TextField.css';
 
 function TextInputField({ onChange }) {
     console.log("TextInputField.js");
@@ -11,11 +12,12 @@ function TextInputField({ onChange }) {
     };
 
     return (
-        <input 
-            type="text" 
+        <textarea 
+            id="textInput"
             value={inputValue} 
             onChange={handleChange} 
             placeholder="Введите сообщение" 
+            rows={4}
         />
     );
 }

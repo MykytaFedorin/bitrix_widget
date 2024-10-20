@@ -20,9 +20,11 @@ function MessageBar({ setMessage }) {
 
     return (
         <div id="messageBar">
-            <FileUploadButton onFileChange={handleFileChange} />
-            <TextInputField onChange={handleTextChange} />
-            <SendButton setMessage={setMessage} uploadedFile={uploadedFile} textInputValue={textInputValue} />
+            <div id="messageBarLine">
+                <FileUploadButton onFileChange={handleFileChange} />
+                <TextInputField onChange={handleTextChange} />
+                <SendButton setMessage={setMessage} uploadedFile={uploadedFile} textInputValue={textInputValue} />
+            </div>
         </div>
     );
 }

@@ -1,0 +1,7 @@
+#textInput{
+    flex-grow: 1;
+    background: inherit;
+    border: none;
+    outline: none;
+    resize: none;
+}

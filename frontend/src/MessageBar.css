@@ -1,11 +1,18 @@
 #messageBar{
     display: flex;
-    height: 2em;
+    height: 3em;
     gap: 0.3em;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-content: center;
     background: green;
-    align-items: stretch;
     background: grey;
     border-radius: inherit;
+}
+#messageBarLine{
+    display: flex;
+    height:2em;
+    border-radius: inherit;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
