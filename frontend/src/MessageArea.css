@@ -1,3 +1,5 @@
 #messageArea{
     border-radius: inherit;
+    height: 100%;
+    overflow-y: auto;
 }
