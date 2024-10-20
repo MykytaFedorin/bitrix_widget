@@ -20,6 +20,7 @@ function SendButton() {
             return;
         }
 
+        messageArea.innerHTML = "Обработка...";
         if (fileInput.files.length > 0) {
             formData.append('file', fileInput.files[0]);
             formData.append('description', textInput.value);
@@ -53,7 +54,7 @@ function SendButton() {
                 messageArea.innerHTML = JSON.stringify(data);  // Отображение результата
             })
             .catch((error) => {
-                messageArea.innerHTML = `Error: ${error.message}`;
+                messageArea.innerHTML = "Error:" + error.message;
                 console.error('Error:', error);
             });
         }

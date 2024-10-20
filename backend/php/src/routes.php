@@ -27,9 +27,9 @@ return function (App $app) {
         $body = $request->getBody();
         $parsedBody = json_decode($body, true);
         $description = $parsedBody['description'];
-        $res = getAllFiles();
-        downloadAllFiles($res);
-        $response->getBody()->write(json_encode(['files' => "succes"]));
+        $AllCvInfo = getAllCvInfo();
+        getCandidate($AllCvInfo, $description);
+        $response->getBody()->write(json_encode(['message' => "success"]));
         return $response->withHeader('Content-Type', 'application/json');
     });
 };
