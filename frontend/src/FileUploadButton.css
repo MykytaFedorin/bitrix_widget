@@ -5,9 +5,7 @@
     align-items: center;
     justify-content: center;
     background: grey;
-}
-#fileUploadBtnDiv:hover{
-    background: white;
+    cursor: pointer;
 }
 #uploadBtnImage{
     width: 100%;

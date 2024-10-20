@@ -6,4 +6,6 @@
     justify-content: center;
     background: green;
     align-items: stretch;
+    background: grey;
+    border-radius: inherit;
 }
