@@ -1,6 +1,14 @@
 import React from 'react';
 
-function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextInputValue, deleteMessage}) {
+function SendButton({ myRef,
+                    addMessage, 
+                    uploadedFile, 
+                    textInputValue, 
+                    setTextInputValue, 
+                    deleteMessage, 
+                    uploadedFileName,
+                    setUploadedFileVisibility}) {
+
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
     console.log("SendButton.js file="+uploadedFile);
@@ -16,9 +24,10 @@ function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextIn
             console.log("Description is required");
             return;
         }
-        addMessage(textInputValue);
+        addMessage(textInputValue + "(" + uploadedFileName + ")");
         addMessage("Обработка...");
         setTextInputValue("");
+        setUploadedFileVisibility({"display":"none"});
         if (uploadedFile) {
             formData.append('file', uploadedFile);
             formData.append('description', textInputValue);

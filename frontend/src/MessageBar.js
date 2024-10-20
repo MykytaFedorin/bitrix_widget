@@ -4,7 +4,7 @@ import SendButton from './SendButton';
 import TextInputField from './TextInputField';
 import './MessageBar.css';
 
-function MessageBar({ addMessage, deleteMessage, setUploadedFileVisibility, setUploadedFileName}) {
+function MessageBar({ addMessage, deleteMessage, setUploadedFileVisibility, setUploadedFileName, uploadedFileName}) {
 
     console.log("MessageBar.js");
     const [uploadedFile, setUploadedFile] = useState(null);
@@ -20,6 +20,7 @@ function MessageBar({ addMessage, deleteMessage, setUploadedFileVisibility, setU
             if (e.key === 'Enter') {
                 sendButtonRef.current.click(); 
                 setTextInputValue("");  
+                setUploadedFileVisibility({"display":"none"});
             }
         }
     };
@@ -38,7 +39,9 @@ function MessageBar({ addMessage, deleteMessage, setUploadedFileVisibility, setU
                             uploadedFile={uploadedFile}
                             textInputValue={textInputValue} 
                             setTextInputValue={setTextInputValue}
-                            deleteMessage={deleteMessage}/>
+                            deleteMessage={deleteMessage}
+                            uploadedFileName={uploadedFileName}
+                            setUploadedFileVisibility={setUploadedFileVisibility}/>
             </div>
         </div>
     );

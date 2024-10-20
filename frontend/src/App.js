@@ -27,7 +27,8 @@ function App() {
                 <MessageBar addMessage={addMessage} 
                             deleteMessage={deleteMessage}
                             setUploadedFileVisibility={setUploadedFileVisibility}
-                            setUploadedFileName={setUploadedFileName}/>
+                            setUploadedFileName={setUploadedFileName}
+                            uploadedFileName={uploadedFileName}/>
             </div>
         </div>
     );
