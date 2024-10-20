@@ -46,6 +46,7 @@
 }
 
 .dialog-window{
+    margin: 3em;
     width: 30em;
     height: 40em;
     display: flex;

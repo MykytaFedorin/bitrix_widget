@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SendButton({ setMessage, uploadedFile, textInputValue }) {
+function SendButton({ addMessage, uploadedFile, textInputValue }) {
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
     console.log("SendButton.js file="+uploadedFile);
@@ -13,11 +13,11 @@ function SendButton({ setMessage, uploadedFile, textInputValue }) {
         const formData = new FormData();
 
         if (textInputValue === "") {
-            setMessage("Description is required");
+            addMessage("Description is required");
             return;
         }
-
-        setMessage("Обработка...");
+        addMessage(textInputValue);
+        addMessage("Обработка...");
         if (uploadedFile) {
             formData.append('file', uploadedFile);
             formData.append('description', textInputValue);
@@ -32,10 +32,10 @@ function SendButton({ setMessage, uploadedFile, textInputValue }) {
             })
             .then(data => {
                 // Обработка успешного ответа
-                setMessage(data);
+                addMessage(data);
             })
             .catch((error) => {
-                setMessage(`Error: ${error.message}`);
+                addMessage(`Error: ${error.message}`);
                 console.error('Error:', error);
             });
         } else {
@@ -50,10 +50,10 @@ function SendButton({ setMessage, uploadedFile, textInputValue }) {
             })
             .then(data => {
                 // Обработка успешного ответа
-                setMessage(data);  // Отображение результата
+                addMessage(data);  // Отображение результата
             })
             .catch((error) => {
-                setMessage("Error:" + error.message);
+                addMessage("Error:" + error.message);
                 console.error('Error:', error);
             });
         }

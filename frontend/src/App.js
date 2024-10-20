@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MessageBar from './MessageBar';
 import MessageArea from './MessageArea';
+import MessageBar from './MessageBar';
+import './App.css';
 
 function App() {
-    const [message, setMessage] = useState("Добрый день, как я могу Вам помочь?");
-    console.log("App.js");
+    const [messages, setMessages] = useState(["Hi"]);
+
+    const addMessage = (newMessage) => {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+    };
+
     return (
-      <div id="body">
-          <div className='dialog-window'>
-              <MessageArea message={message}/>
-              <MessageBar setMessage={setMessage}/>
-          </div>
-      </div>
+        <div id="body">
+            <div className='dialog-window'>
+                <MessageArea messages={messages} />
+                <MessageBar addMessage={addMessage} />
+            </div>
+        </div>
     );
 }
 
 export default App;
+
