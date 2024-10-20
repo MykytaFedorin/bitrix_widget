@@ -7,7 +7,9 @@ function SendButton({ myRef,
                     setTextInputValue, 
                     deleteMessage, 
                     uploadedFileName,
-                    setUploadedFileVisibility}) {
+                    setUploadedFileVisibility,
+                    setUploadedFileName,
+                    setUploadedFile}) {
 
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
@@ -24,10 +26,16 @@ function SendButton({ myRef,
             console.log("Description is required");
             return;
         }
-        addMessage(textInputValue + "(" + uploadedFileName + ")");
+        if(uploadedFile){
+            addMessage(textInputValue + "(" + uploadedFileName + ")");
+        }
+        else{
+            addMessage(textInputValue);
+        }
         addMessage("Обработка...");
         setTextInputValue("");
         setUploadedFileVisibility({"display":"none"});
+        setUploadedFileName("");
         if (uploadedFile) {
             formData.append('file', uploadedFile);
             formData.append('description', textInputValue);
@@ -44,6 +52,7 @@ function SendButton({ myRef,
                 // Обработка успешного ответа
                 deleteMessage();
                 addMessage(data);
+                setUploadedFile(null);
             })
             .catch((error) => {
                 addMessage(`Error: ${error.message}`);
@@ -69,6 +78,7 @@ function SendButton({ myRef,
                 console.error('Error:', error);
             });
         }
+
     };
 
     return <button ref={myRef} onClick={sendFile}>Отправить</button>;
