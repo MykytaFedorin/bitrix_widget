@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextInputValue }) {
+function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextInputValue, deleteMessage}) {
     console.log("SendButton.js");
     console.log("SendButton.js text="+textInputValue);
     console.log("SendButton.js file="+uploadedFile);
@@ -17,8 +17,8 @@ function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextIn
             return;
         }
         addMessage(textInputValue);
-        setTextInputValue("");
         addMessage("Обработка...");
+        setTextInputValue("");
         if (uploadedFile) {
             formData.append('file', uploadedFile);
             formData.append('description', textInputValue);
@@ -33,6 +33,7 @@ function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextIn
             })
             .then(data => {
                 // Обработка успешного ответа
+                deleteMessage();
                 addMessage(data);
             })
             .catch((error) => {
@@ -51,6 +52,7 @@ function SendButton({ myRef, addMessage, uploadedFile, textInputValue, setTextIn
             })
             .then(data => {
                 // Обработка успешного ответа
+                deleteMessage();
                 addMessage(data);  // Отображение результата
             })
             .catch((error) => {

@@ -4,7 +4,7 @@ import SendButton from './SendButton';
 import TextInputField from './TextInputField';
 import './MessageBar.css';
 
-function MessageBar({ addMessage }) {
+function MessageBar({ addMessage, deleteMessage}) {
 
     console.log("MessageBar.js");
     const [uploadedFile, setUploadedFile] = useState(null);
@@ -35,7 +35,8 @@ function MessageBar({ addMessage }) {
                             myRef={sendButtonRef}
                             uploadedFile={uploadedFile}
                             textInputValue={textInputValue} 
-                            setTextInputValue={setTextInputValue}/>
+                            setTextInputValue={setTextInputValue}
+                            deleteMessage={deleteMessage}/>
             </div>
         </div>
     );

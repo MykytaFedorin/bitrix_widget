@@ -10,11 +10,17 @@ function App() {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
     };
 
+    const deleteMessage = () => {
+        console.log("delete")
+        setMessages((prevMessages) => prevMessages.slice(0, -1));
+    };
+
     return (
         <div id="body">
             <div className='dialog-window'>
-                <MessageArea messages={messages} />
-                <MessageBar addMessage={addMessage} />
+                <MessageArea messages={messages}  />
+                <MessageBar addMessage={addMessage} 
+                            deleteMessage={deleteMessage}/>
             </div>
         </div>
     );
