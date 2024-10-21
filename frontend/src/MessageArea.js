@@ -8,14 +8,21 @@ function MessageArea({ messages }) {
     return (
         <div id="messageArea">
             {messages.map((message, index) => {
-                let messageBlock = null;
+                let messageBlock;
+
                 if (typeof message === "string") {
                     messageBlock = <Message content={message} key={index} />;
                 } else {
-                    let messageLink = <MessageLink href={message["downloadUrl"]} linkName={message["fileName"]} />;
+                    const messageLink = (
+                        <MessageLink 
+                            href={message["downloadUrl"]} 
+                            linkName={message["fileName"]} 
+                        />
+                    );
                     messageBlock = <Message content={messageLink} key={index} />;
                 }
-                return messageBlock;
+
+                return messageBlock; // Возвращаем элемент блока сообщения
             })}
         </div>
     );

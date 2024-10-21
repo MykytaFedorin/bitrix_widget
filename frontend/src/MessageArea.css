@@ -1,4 +1,6 @@
 #messageArea{
+    display: flex;
+    flex-direction: column;
     border-radius: inherit;
     height: 100%;
     overflow-y: auto;

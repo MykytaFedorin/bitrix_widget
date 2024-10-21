@@ -5,6 +5,17 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 require 'chatgpt.php';
 
+
+function generateCv(){
+    $file = file_get_contents("cv.txt", "r");
+    $query = "Сгенерируй резюме по вот такому шаблону: '"
+            . $file .
+            "', которое бы подходило под вакансию " . $description .
+            ". Все факты о кандидате, кроме скиллов, должны быть вымышленные";
+    return askGPT($query);
+}
+
+
 function getAllCvInfo() {
     $log = require 'logger.php';
 
@@ -55,7 +66,7 @@ function findBestCandidate($candidates){
         }
     }
     $log->debug("Best candidate: " . $bestCandidate["downloadUrl"]);
-    return $bestCandidate;
+    return $bestCandidate['rating'] > 8 ? $bestCandidate : null;
 }
 function getCandidate($AllCvInfo, $posDescription){
     $rating = [];

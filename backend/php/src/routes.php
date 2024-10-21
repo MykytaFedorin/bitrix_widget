@@ -29,8 +29,15 @@ return function (App $app) {
         $description = $parsedBody['description'];
         $AllCvInfo = getAllCvInfo();
         $candidate = getCandidate($AllCvInfo, $description);
-        $response->getBody()->write(json_encode($candidate));
-        return $response->withHeader('Content-Type', 'application/json');
+        if($candidate){ 
+            $response->getBody()->write(json_encode($candidate));
+            return $response->withHeader('Content-Type', 'application/json');
+        }
+        else{
+            $cv = generateCv();
+            $response->getBody()->write(json_encode($cv));
+            return $response->withHeader('Content-Type', 'application/json');
+        }
     });
 };
 ?>
