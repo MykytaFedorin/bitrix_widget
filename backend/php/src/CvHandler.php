@@ -6,12 +6,16 @@ $dotenv->load();
 require 'chatgpt.php';
 
 
-function generateCv(){
+function generateCv($description){
+    $log = require 'logger.php';
     $file = file_get_contents("cv.txt", "r");
     $query = "Сгенерируй резюме по вот такому шаблону: '"
             . $file .
             "', которое бы подходило под вакансию " . $description .
-            ". Все факты о кандидате, кроме скиллов, должны быть вымышленные";
+            ". Все факты о кандидате, кроме скиллов, должны быть вымышленные и не должны совпадать с данными из 
+            того резюме которое я тебе отправил";
+    
+    $log->debug("Query: " . $query);
     return askGPT($query);
 }
 
@@ -66,7 +70,7 @@ function findBestCandidate($candidates){
         }
     }
     $log->debug("Best candidate: " . $bestCandidate["downloadUrl"]);
-    return $bestCandidate['rating'] > 8 ? $bestCandidate : null;
+    return $bestCandidate['rating'] > 5 ? $bestCandidate : null;
 }
 function getCandidate($AllCvInfo, $posDescription){
     $rating = [];

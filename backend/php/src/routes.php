@@ -34,7 +34,7 @@ return function (App $app) {
             return $response->withHeader('Content-Type', 'application/json');
         }
         else{
-            $cv = generateCv();
+            $cv = generateCv($description);
             $response->getBody()->write(json_encode($cv));
             return $response->withHeader('Content-Type', 'application/json');
         }
