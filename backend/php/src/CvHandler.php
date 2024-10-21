@@ -12,10 +12,9 @@ function generateCv($description){
     $query = "Сгенерируй резюме по вот такому шаблону: '"
             . $file .
             "', которое бы подходило под вакансию " . $description .
-            ". Все факты о кандидате, кроме скиллов, должны быть вымышленные и не должны совпадать с данными из 
-            того резюме которое я тебе отправил";
+            ". Все факты о кандидате, кроме скиллов, должны быть вымышленные и не должны совпадать с данными из того резюме, которое я тебе отправил";
     
-    $log->debug("Query: " . $query);
+    $log->info("Запрос к GPT: " . $query);
     return askGPT($query);
 }
 
@@ -24,7 +23,7 @@ function getAllCvInfo() {
     $log = require 'logger.php';
 
     $webhookUrl = $_ENV["BITRIX_BASE_URL"] . "disk.folder.getchildren?id=93";
-    $log->debug($webhookUrl);
+    $log->info("Запрос к Битрикс: " . $webhookUrl);
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $webhookUrl);
@@ -50,8 +49,8 @@ function getAllCvInfo() {
 
     curl_close($ch);
 }
-function findBestCandidate($candidates){
 
+function findBestCandidate($candidates){
     $log = require 'logger.php';
     $bestCandidate = null;
     $highestRating = -1; 
@@ -59,7 +58,7 @@ function findBestCandidate($candidates){
     foreach ($candidates as $fileName => $data) {
         $currentRating = $data[0]; 
         $downloadUrl = $data[1];   
-        $log->debug("Download url is " . $downloadUrl);
+        $log->info("Ссылка для скачивания резюме: " . $downloadUrl);
         if ($currentRating > $highestRating) {
             $highestRating = $currentRating;
             $bestCandidate = [
@@ -69,9 +68,10 @@ function findBestCandidate($candidates){
             ];
         }
     }
-    $log->debug("Best candidate: " . $bestCandidate["downloadUrl"]);
+    $log->info("Лучший кандидат: " . $bestCandidate["downloadUrl"]);
     return $bestCandidate['rating'] > 5 ? $bestCandidate : null;
 }
+
 function getCandidate($AllCvInfo, $posDescription){
     $rating = [];
     $log = require 'logger.php';
@@ -85,7 +85,7 @@ function getCandidate($AllCvInfo, $posDescription){
     foreach ($AllCvInfoDecode['result'] as $cv) {
         $downloadUrl = $cv['DOWNLOAD_URL'];
         $fileName = basename($cv['NAME']);
-        $log->debug("Загрузка файла " . $fileName . " с url " . $downloadUrl); 
+        $log->info("Загрузка файла: " . $fileName . " с URL: " . $downloadUrl); 
         $ch = curl_init($downloadUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
@@ -93,24 +93,24 @@ function getCandidate($AllCvInfo, $posDescription){
         $fileData = curl_exec($ch);
         
         if (curl_errno($ch)) {
-            $log->debug('Ошибка чтения файла ' . $fileName . ': ' . curl_error($ch) . PHP_EOL);
+            $log->info('Ошибка при чтении файла ' . $fileName . ': ' . curl_error($ch));
         } else {
-            # file_put_contents($fileName, $fileData);
-            $log->debug($fileData); 
+            $log->info('Содержимое файла: ' . $fileData); 
             $rating[$fileName] = [rateCv($fileData, $posDescription), $downloadUrl];
-            $log->debug('Файл ' . $fileName . ' успешно прочитан.' . PHP_EOL);
+            $log->info('Файл ' . $fileName . ' успешно прочитан.');
         }
 
         curl_close($ch);
     }
     return findBestCandidate($rating);
-
 }
+
 function rateCv($cv, $position){
     $question = "Я HR. Мне нужно закрыть вакансию " 
                 . $position .
                 ". Оцени вот это резюме от 1 до 10."
                 . $cv .
-                "Ответ напиши коротко, одной цифрой. Обращай внимание на скиллы которые есть у кандидата, если нет скиллов предполагаемых для этой должности, то не завышай оценку.";
+                "Ответ напиши коротко, одной цифрой. Обращай внимание на скиллы, которые есть у кандидата, если нет скиллов, предполагаемых для этой должности, то не завышай оценку.";
     return (int)askGPT($question); 
 }
+
