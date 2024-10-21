@@ -1,0 +1,7 @@
+#sendButton{
+    cursor: pointer;
+    opacity: 50%;
+}
+#sendButton:hover{
+    opacity: 70%;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
-
+import send from './send.png';
+import './SendButton.css';
 function SendButton({ myRef,
                     addMessage, 
                     uploadedFile, 
@@ -81,7 +82,7 @@ function SendButton({ myRef,
 
     };
 
-    return <button ref={myRef} onClick={sendFile}>Отправить</button>;
+    return <img id="sendButton" src={send} ref={myRef} onClick={sendFile} alt="send_button"></img>;
 }
 
 export default SendButton;
